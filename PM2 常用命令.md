@@ -17,9 +17,9 @@ $ pm2 reload app_name # 重载
 $ pm2 stop app_name # 停止
 $ pm2 delete app_name # 删除
 ```
-> 你可以将==app_name==替换为:
-> ==all== *对所有程序操作*
-> ==id== *对特定的进程id操作*
+> 你可以将 **`app_name`** 替换为:  
+> **`all`** *对所有程序操作*  
+> **`id`** *对特定的进程id操作*  
 
 其它用的较多的命令：
 
@@ -39,5 +39,5 @@ $ pm2 save # 保存当前应用列表
 $ pm2 resurrect # 重新加载保存的应用列表(通过pm2 save保存的应用)
 $ pm2 update # 升级pm2，这之前最好先 pm2 save保存一下
 ```
-线上网址： [https://pm2.keymetrics.io/](https://pm2.keymetrics.io/)
-Github地址：[https://github.com/Unitech/pm2](https://github.com/Unitech/pm2)
+线上网址： [https://pm2.keymetrics.io/](https://pm2.keymetrics.io/)  
+Github地址：[https://github.com/Unitech/pm2](https://github.com/Unitech/pm2)  
