@@ -2,3 +2,4 @@
 - [《Three.js实现光照阴影》](https://github.com/travelclover/article/blob/master/2020/Three.js%E5%AE%9E%E7%8E%B0%E5%85%89%E7%85%A7%E9%98%B4%E5%BD%B1.md) 2020-03-23
 - [《Three.js实现简单开门动画》](https://github.com/travelclover/article/blob/master/2020/Three.js%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%BC%80%E9%97%A8%E5%8A%A8%E7%94%BB.md) 2020-03-27
 - [《ArcGIS API在视图中渲染Three.js场景》](https://github.com/travelclover/article/blob/master/2020/ArcGIS%20API%E5%9C%A8%E8%A7%86%E5%9B%BE%E4%B8%AD%E6%B8%B2%E6%9F%93Three.js%E5%9C%BA%E6%99%AF.md) 2020-04-04
+- [《ArcGIS API中PictureMarkerSymbol使用GIF图片》](https://github.com/travelclover/article/blob/master/2020/ArcGIS%20API%E4%B8%ADPictureMarkerSymbol%E4%BD%BF%E7%94%A8GIF%E5%9B%BE%E7%89%87.md) 2020-04-14
