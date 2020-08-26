@@ -1,6 +1,6 @@
 # Three.js实现简单开门动画
 先来看一下简单的开门动画实现效果，如下图所示：  
-![](https://github.com/travelclover/img/blob/master/2020/03/doorOpen.gif)  
+![开门动画效果](https://travelclover.github.io/img/2020/03/doorOpen.gif)  
 可以看得出这个开门动画还是比较简单的，主要关键点有2个地方：  
 1.  实现门围绕右门框旋转。
 2.  利用关键帧实现动画。
@@ -8,7 +8,7 @@
 
 ## 1.实现门围绕右门框旋转
 Three.js中物体的默认旋转中心为物体自身的中心，例如有一扇门（实际上是一个宽为10，高为20，深度为0.5的立方体），如果让它绕Y轴旋转90度，也就是设置`rotation.y`属性为`Math.PI/2`，结果如下图所示：
-![](https://github.com/travelclover/img/blob/master/2020/03/door.rotation.y.jpg)  
+![默认旋转中心示意图](https://travelclover.github.io/img/2020/03/door.rotation.y.jpg)  
 很显然，大多数门不应该这样旋转。那么我们应该怎么做才能让门绕着指定轴旋转呢？这时候我们可以在`门`这个对象外面包一层`Object3D`对象，让外层物体的旋转中心位置在原本想要旋转的指定位置上，再调整门在外层物体中的相对位置，使门的右边缘在外层物体的中心位置上。
 ```javascript
 // 创建门

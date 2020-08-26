@@ -1,7 +1,7 @@
 # ArcGIS API在视图中渲染Three.js场景
 ArcGIS API中的`SceneView`使用`WebGL`在屏幕上渲染地图和场景，还提供了一个底层接口来访问SceneView的WebGL上下文，因此可以创建与场景交互的自定义​​可视化效果，方式与内置图层相同。那么我们可以直接编写WebGL代码，也可以集成第三方WebGL库（例如Three.js）。  
 现在我门就来尝试在ArcGIS的三维场景中加入一个物体，比如说`UFO`：  
-![UFO模型](https://github.com/travelclover/img/blob/master/2020/04/UFO.jpg)
+![UFO模型](https://travelclover.github.io/img/2020/04/UFO.jpg)
 > 该模型下载自[CG模型网](https://www.cgmodel.com/model-918.html)。然后通过`3DS MAX`软件导出为obj格式模型。
 
 ## 1.引入需要用到的类  
@@ -196,7 +196,7 @@ context.resetWebGLState();
 externalRenderers.add(view, myRenderer);
 ```
 这样我们就成功地在地图三维场景中渲染出用Three.js加载的外部模型UFO啦！  
-![地图中加载UFO模型](https://github.com/travelclover/img/blob/master/2020/04/externalRenderers.jpg)
+![地图中加载UFO模型](https://travelclover.github.io/img/2020/04/externalRenderers.jpg)
 
 ***
 **以下是完整代码**

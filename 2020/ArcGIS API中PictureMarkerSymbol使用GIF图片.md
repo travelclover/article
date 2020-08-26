@@ -3,7 +3,7 @@
 
 ## 动态图片资源
 首先，我们需要一个格式GIF的动态图片资源，随便在网上找一个就行，我找的是一个可爱的小乌龟。  
-![gif图](https://github.com/travelclover/img/blob/master/2020/04/gif.gif)
+![gif图](https://travelclover.github.io/img/2020/04/gif.gif)
 
 ## 创建地图
 ```javascript
@@ -65,15 +65,15 @@ map.add(layer);
 
 ## 展示效果
 最后，我们就来看一下效果吧。symbol已经动起来了！  
-![效果图](https://github.com/travelclover/img/blob/master/2020/04/ditu-gui.gif)
+![效果图](https://travelclover.github.io/img/2020/04/ditu-gui.gif)
 
 ## 思考1：能否在3D场景SceneView中使用
 虽然文档上已经说了在SceneView中不支持PictureMarkerSymbol显示GIF格式图片，但我还是好奇决定试一下，看一看是什么效果。最终经过实际测试，发现在3D场景中其实能加载GIF图片，能成功地显示出来，只是不能让图片动起来，和普通图片一样。如下图所示：  
-![SceneView中PictureMarkerSymbol加载GIF效果图](https://github.com/travelclover/img/blob/master/2020/04/SceneView-gif.jpg)
+![SceneView中PictureMarkerSymbol加载GIF效果图](https://travelclover.github.io/img/2020/04/SceneView-gif.jpg)
 
 ## 思考2：该功能的实际用处有哪些
 我第一想到的就是我们能通过该功能实现新闻联播中天气预报各种气象动态效果，比如下雨天，如下图所示：  
-![天气预报雨天效果图](https://github.com/travelclover/img/blob/master/2020/04/map-rain.gif)  
+![天气预报雨天效果图](https://travelclover.github.io/img/2020/04/map-rain.gif)  
 
 ***
 **以下是完整代码**
