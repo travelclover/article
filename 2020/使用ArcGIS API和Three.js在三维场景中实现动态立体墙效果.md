@@ -1,7 +1,7 @@
 # 使用ArcGIS API和Three.js在三维场景中实现动态立体墙效果
-废话不多说，直接先来看下最终实现的动态立体墙效果图。
-![动态立体墙效果图](https://travelclover.github.io/img/2020/08/%E5%8A%A8%E6%80%81%E7%AB%8B%E4%BD%93%E5%A2%99%E6%95%88%E6%9E%9C%E5%9B%BE.gif)
-如果图片还不够直观，那么点击链接查看[在线示例](https://travelclover.github.io/demo/example/%E4%BD%BF%E7%94%A8ArcGIS%20API%E5%92%8CThree.js%E5%9C%A8%E4%B8%89%E7%BB%B4%E5%9C%BA%E6%99%AF%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E7%AB%8B%E4%BD%93%E5%A2%99%E6%95%88%E6%9E%9C.html)。
+废话不多说，直接先来看下最终实现的动态立体墙效果图。  
+![动态立体墙效果图](https://travelclover.github.io/img/2020/08/%E5%8A%A8%E6%80%81%E7%AB%8B%E4%BD%93%E5%A2%99%E6%95%88%E6%9E%9C%E5%9B%BE.gif)  
+如果图片还不够直观，那么点击链接查看[在线示例](https://travelclover.github.io/demo/example/%E4%BD%BF%E7%94%A8ArcGIS%20API%E5%92%8CThree.js%E5%9C%A8%E4%B8%89%E7%BB%B4%E5%9C%BA%E6%99%AF%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E7%AB%8B%E4%BD%93%E5%A2%99%E6%95%88%E6%9E%9C.html)。  
  
 首先我们需要用到ArcGIS API中的[`externalRenderers`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-3d-externalRenderers.html)类将外部的Three.js渲染器加载到地图三维场景中，如果不知道怎么使用的可以查看我的这篇文章[《ArcGIS API在视图中渲染Three.js场景》](https://github.com/travelclover/article/blob/master/2020/ArcGIS%20API%E5%9C%A8%E8%A7%86%E5%9B%BE%E4%B8%AD%E6%B8%B2%E6%9F%93Three.js%E5%9C%BA%E6%99%AF.md)。那篇文章中加载的是一个三维模型，而本示例中只需加载一面“墙”，也就是一个平面，并增加一个动态效果。所以重点就是怎么加载一个垂直于地球表面的平面，以及如何实现动态效果。  
 
