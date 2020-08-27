@@ -38,7 +38,7 @@ let transform = new THREE.Matrix4(); // 变换矩阵
 let transformation = new Array(16);
 let vector3List = []; // 顶点数组
 points.forEach((point) => {
-  // 将经纬度坐标转换为xy值\
+  // 将经纬度坐标转换为xy值
   let pointXY = webMercatorUtils.lngLatToXY(point[0], point[1]);
   // 先转换高度为0的点
   transform.fromArray(
@@ -78,7 +78,7 @@ points.forEach((point) => {
 > 1 view，ArcGIS API生成的三维视图。  
 > 2 origin，局部笛卡尔坐标系中原点的全局坐标，也就是[经纬度转换后的X坐标, 经纬度转换后的y坐标, 高度值]。  
 > 3 srcSpatialReference，原点坐标的空间参考。  
-> 4 dest，存储16个矩阵元素的数组的引用。生成的矩阵遵循OpenGL约定，其中转换组件占据第13、14和15个元素。  
+> 4 dest，存储16个矩阵元素的数组的引用。生成的矩阵遵循OpenGL约定，其中转换组件占据第13、14和第15个元素。  
   
 现在，`vector3List`变量中存储的就是每个顶点转换后的三维向量，一共为4个顶点。顺序是[第一个经纬度的地面顶点, 第一个经纬度的空中顶点, 第二个经纬度的地面顶点, 第二个经纬度的空中顶点]，这个顶点的顺序很重要，后面会用到。  
 
@@ -123,3 +123,89 @@ geometry.faceVertexUvs[0] = faceVertexUvs; // 面的UV队列，用于将纹理�
 ```
 > `geometry.faceVertexUvs`的属性值为数组是因为有多组UV。颜色贴图、法线贴图、高光贴图、金属度贴图等共用一组纹理坐标UV即`geometry.faceVertexUvs[0]`，设置阴影的光照贴图lightMap使用另外一组纹理坐标，也就是`geometry.faceVertexUvs[1]`。默认情况下，`geometry.faceVertexUvs`属性中会存在一个元素，所以可以直接对`geometry.faceVertexUvs[0]`进行赋值操作。  
 > **注意**：对于缓冲区类型几何体也就是通过[`BufferGeometry`](https://threejs.org/docs/index.html#api/en/core/BufferGeometry)构造函数生成的几何体，是通过设置.attributes.uv和.attributes.uv2两个属性分别定义两组顶点纹理坐标。
+
+## 2 实现墙的动态效果
+动态效果的原理其实是纹理贴图实现的，一共两层贴图，一层颜色从上到下越来越不透明，给人一面墙的感觉，另一层从上到下越来越透明，然后每次渲染都改变第二层纹理在垂直方向上的偏移量，这样就有了滚动起来的效果。  
+因为当第一层半透明和第二层半透明的效果都叠加到一个几何体上时，这个几何体就会变得更加的透明，显示效果上就不是很好，所以我们把这两层效果放到两个几何体上，只需要把上面创建好的几何体克隆一遍。
+```javascript
+const geometry2 = geometry.clone();
+```
+
+### 2.1 利用材质的alphaMap贴图实现半透明效果
+我们选用基础网络材质[`MeshBasicMaterial`](https://threejs.org/docs/index.html#api/en/materials/MeshBasicMaterial)，该材质不受光照的影响，所以不需要在场景中再额外的添加光源，省时省力~。该材质对象上的[`alphaMap`](https://threejs.org/docs/index.html#api/en/materials/MeshBasicMaterial.alphaMap)贴图属性可以用来控制整个表面的不透明度，黑色完全透明，白色完全不透明。如下图所示，从上到下越来越白，也就是也来越不透明。  
+![alphaMap贴图.png](https://travelclover.github.io/img/2020/08/texture_1.png)  
+加载alphaMap的纹理贴图资源，创建材质，和第一个几何体生成网格，然后添加到场景中。
+```javascript
+this.alphaMap = new THREE.TextureLoader().load( // 加载alpha贴图资源
+  '../images/texture_1.png'
+);
+// 创建材质
+const material = new THREE.MeshBasicMaterial({
+  color: 0xff0000,
+  side: THREE.DoubleSide,
+  transparent: true, // 必须设置为true,alphaMap才有效果
+  depthWrite: false, // 渲染此材质是否对深度缓冲区有任何影响
+  alphaMap: this.alphaMap, // alpha贴图，控制透明度
+});
+const mesh = new THREE.Mesh(geometry, material); // 第一个几何体和第一个材质
+this.scene.add(mesh);
+```
+> **注意**：  
+> `side`属性要设置为`THREE.DoubleSide`，这样才能两个面都进行绘制，也就是说从前后两个方向都能看到几何体。  
+> `transparent`属性一定要设置为`true`，不然alphaMap贴图是没有效果的，看不出透明效果。  
+> `depthWrite`属性一定要设置为`false`，才能正确渲染后方的半透明物体。  
+
+效果如图所示：  
+![第一层透明效果图.png](https://travelclover.github.io/img/2020/08/第一层透明效果图.png)  
+
+### 2.2 利用材质的map颜色贴图实现渐变半透明效果
+[`MeshBasicMaterial`](https://threejs.org/docs/index.html#api/en/materials/MeshBasicMaterial)材质的[`map`](https://threejs.org/docs/index.html#api/en/materials/MeshBasicMaterial.map)属性为颜色贴图。可以设置为半透明的PNG格式图片，也就达到了透明的效果。  
+![PNG格式纹理.png](https://travelclover.github.io/img/2020/08/texture_2.png)  
+加载PNG格式的纹理贴图资源，创建材质，和克隆出来的几何体生成网格，然后添加到场景中。
+```javascript
+this.texture = new THREE.TextureLoader().load(
+  '../images/texture_2.png'
+);
+this.texture.wrapS = THREE.RepeatWrapping; // 水平方向重复
+this.texture.wrapT = THREE.RepeatWrapping; // 垂直方向重复
+const material2 = new THREE.MeshBasicMaterial({
+  side: THREE.DoubleSide,
+  transparent: true,
+  depthWrite: false, // 渲染此材质是否对深度缓冲区有任何影响
+  map: this.texture, // 颜色贴图，加载PNG图片达到透明效果
+});
+const mesh2 = new THREE.Mesh(geometry2, material2);
+this.scene.add(mesh2);
+```
+> **注意**：  
+> 因为需要在垂直方向上存在偏移量，形成滚动的效果，所以必须设置纹理的包裹方式为重复，`wrapS`和`wrapT`属性设置为`THREE.RepeatWrapping`。具体可查看[文档](http://threejs.org/docs/index.html#api/en/textures/Texture.wrapS)。  
+
+叠加到场景中的效果如图所示：  
+![第二层叠加后效果图.png](https://travelclover.github.io/img/2020/08/第二层叠加后效果图.png)  
+
+### 2.3 效果动起来
+现在大体效果已经差不多了，最后只要动起来就完工了。要实现动起来的效果只需要在render函数中添加更新纹理贴图偏移量的代码，每渲染一次就更新一次偏移量。
+```javascript
+render() {
+  // ... 其它代码
+  if (this.offset <= 0) {
+    this.offset = 1;
+  } else {
+    this.offset -= 0.02; // 每次渲染就向上移动0.02个单位，如果想要速度快就增大该值
+  }
+  if (this.texture) {
+    this.texture.offset.set(0, this.offset); // 水平偏移量0，垂直方向偏移量为offset
+  }
+  // ... 其它代码
+}
+```
+> [`texture`](https://threejs.org/docs/index.html#api/en/textures/Texture)对象上存在[`offset`](https://threejs.org/docs/index.html#api/en/textures/Texture.offset)属性，该属性值类型为二维向量[Vector2](https://threejs.org/docs/index.html#api/en/math/Vector2)，用来设置水平和垂直方向上的偏移量，值的范围在0.0到1.0之间。  
+
+最终效果如图所示：  
+![动态立体墙效果图](https://travelclover.github.io/img/2020/08/%E5%8A%A8%E6%80%81%E7%AB%8B%E4%BD%93%E5%A2%99%E6%95%88%E6%9E%9C%E5%9B%BE.gif)
+
+## 3 总结
+至此，我们的立体动态墙效果就已经实现了。重要点就是通过顶点向量加三角面构成自定义的平面矩形几何体，通过设置纹理贴图以及改变纹理贴图的偏移量来实现动起来的效果。  
+***
+点击链接查看[完整代码](https://github.com/travelclover/demo/blob/gh-pages/example/%E4%BD%BF%E7%94%A8ArcGIS%20API%E5%92%8CThree.js%E5%9C%A8%E4%B8%89%E7%BB%B4%E5%9C%BA%E6%99%AF%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E7%AB%8B%E4%BD%93%E5%A2%99%E6%95%88%E6%9E%9C.html)。  
+点击链接查看[在线示例](https://travelclover.github.io/demo/example/%E4%BD%BF%E7%94%A8ArcGIS%20API%E5%92%8CThree.js%E5%9C%A8%E4%B8%89%E7%BB%B4%E5%9C%BA%E6%99%AF%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E7%AB%8B%E4%BD%93%E5%A2%99%E6%95%88%E6%9E%9C.html)。
