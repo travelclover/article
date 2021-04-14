@@ -1,6 +1,6 @@
 # Three.js实现抛物线动态流向效果
 老规矩，首先来看下最终实现的效果。  
-![抛物线流向动态效果图](https://travelclover.github.io/img/2021/04/%E6%8A%9B%E7%89%A9%E7%BA%BF%E5%8A%A8%E6%80%81%E6%B5%81%E5%90%91%E6%95%88%E6%9E%9C.gif)
+![抛物线流向动态效果图](https://travelclover.github.io/img/2021/04/抛物线动态流向效果.gif)
 该效果可能会用在飞机航线起点到终点的演示、导弹发射轨迹效果演示等场景。掌握思路以后，效果实现起来非常简单，总结下来要点其实就两个：1.绘制抛物线；2.实现流向动态效果。下面就来看看具体实现过程吧。  
 
 ## 创建三维场景
@@ -152,7 +152,7 @@ function animate() {
 **注意：** 改变了顶点颜色数组后一定要将`geometry.colorsNeedUpdate`属性设置为`true`，这样three.js才知道顶点颜色数组发生了变化，非常重要！！！
 
 现在，我们就完成了所有代码，实现了抛物线动态流向效果。  
-![抛物线流向动态效果图](https://travelclover.github.io/img/2021/04/%E6%8A%9B%E7%89%A9%E7%BA%BF%E5%8A%A8%E6%80%81%E6%B5%81%E5%90%91%E6%95%88%E6%9E%9C.gif)
+![抛物线流向动态效果图](https://travelclover.github.io/img/2021/04/抛物线动态流向效果.gif)
 
 点击查看[在线示例](https://travelclover.github.io/demo/example/Three.js实现抛物线动态流向效果)。  
 点击查看完整[示例代码](https://github.com/travelclover/demo/blob/gh-pages/example/Three.js实现抛物线动态流向效果.html)。  
