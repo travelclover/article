@@ -2,7 +2,7 @@
 首先我们先来看下实现的效果吧~  
 <video id="video" controls="controls"  src="https://travelclover.github.io/img/2021/07/canvas实现粒子流动效果.mp4">
 </video>
-![canvas实现粒子流动效果.gif](https://travelclover.github.io/img/2021/07/canvas实现粒子流动效果.gif)
+![canvas实现粒子流动效果.gif](https://travelclover.github.io/img/2021/07/canvas实现粒子流动效果.gif)  
 这是一个简单的粒子流向效果，实现起来也非常简单，该效果可以用在管道流向、风场变化、以及其它需要表达方向、速度的可视化效果展示场景中。  
 
 该效果中的难点只有一个，就是粒子的拖尾效果。  
