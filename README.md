@@ -1,3 +1,5 @@
+- [《ArcGIS JS API实现地图场景视频融合》](https://github.com/travelclover/article/blob/master/2022/ArcGIS%20JS%20API实现地图场景视频融合.md) 2022-04-28
+![地图场景视频融合效果](https://travelclover.github.io/img/2022/04/地图场景视频融合效果.gif)
 - [《纯Git实现前端项目打包部署》](https://github.com/travelclover/article/blob/master/2022/纯Git实现前端项目打包部署.md) 2022-03-25
 - [《使用canvas实现粒子流动效果》](https://github.com/travelclover/article/blob/master/2021/使用canvas实现粒子流动效果.md) 2021-07-05
 ![canvas实现粒子流动效果.gif](https://travelclover.github.io/img/2021/07/canvas实现粒子流动效果.gif)
