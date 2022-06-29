@@ -26,3 +26,6 @@
 ```
 示例结果  
 ![bdi示例结果](https://travelclover.github.io/img/2022/06/bdi示例结果.png)  
+
+## 三、\<details\>: 详细信息展现元素
+`<details>`标签允许用户创建一个可展开折叠的元件，让一段文字或标题包含一些隐藏的信息。
