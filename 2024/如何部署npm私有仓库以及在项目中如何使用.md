@@ -2,7 +2,7 @@
 
 ## 为什么要部署npm私有仓库？
 1. 安全性：私有仓库允许团队存放内部研发的、不宜公开发布的代码包，只对特定用户或者团队可见和可用，从而保护公司的知识产权和商业秘密。  
-2. 模块的复用性：私有仓库可以存放一些公司内部使用的模块，例如使用的组件、工具类、配置文件等，这样，在项目开发中，就可以直接使用这些模块，而不需要重复开发。  
+2. 模块的复用性：私有仓库可以存放一些公司内部使用的模块，例如使用的组件、工具类、配置文件等，这样在项目开发中，就可以直接使用这些模块，而不需要重复开发。  
 3. 性能优化：部署在内网环境下的私有仓库，可以显著减少依赖包在网络传输过程中的延迟和丢包风险，尤其在中国国内环境下，由于网络问题可能导致访问公共npm仓库速度较慢，私有仓库则能够显著提升依赖安装速度。  
 
 ## 有哪些工具可以部署私有npm仓库
@@ -14,6 +14,7 @@
 6. **[定制开发]()**：如果希望深度定制或自行管理，理论上也可以基于npm本身的registry协议搭建自定义的私有仓库，但这通常需要更多的开发工作和技术支持。
 
 ## Verdaccio
+![Verdaccio logo](https://travelclover.github.io/img/2024/04/verdaccio_logo.jpg)  
 什么是Verdaccio？它的自我介绍原文是： 
 > Verdaccio is a lightweight private npm proxy registry built in Node.js
 
@@ -74,7 +75,7 @@ info --- config file  - /home/.config/verdaccio/config.yaml
 warn --- http address - http://localhost:4873/ - verdaccio/5.30.3
 ```
 在浏览器中输入地址`http://localhost:4873`，就可以访问到Verdaccio的页面了。  
-![小车导航效果](https://travelclover.github.io/img/2024/04/verdaccio_ui.jpg)  
+![Verdaccio页面](https://travelclover.github.io/img/2024/04/verdaccio_ui.jpg)  
 
 ### Verdaccio的命令
 除了上面用到的查看版本的命令，Verdaccio还提供了以下命令：
@@ -90,9 +91,9 @@ $ verdaccio --listen http://localhost:7000 --config /root/config.yaml
 ```
 上面的命令中，指定了用`/root/config.yaml`配置文件来启动服务，并且监听本地主机的7000端口。这意味着当Verdaccio启动后，其他客户端可以通过 http://localhost:7000 地址与其交互，例如安装、发布和搜索私有npm包。
 
-### 使用PM2守护Verdaccio进程
-PM2是一个Node.js进程管理器，可以轻松管理Verdaccio进程。PM2可以确保Verdaccio进程在系统崩溃或重启时自动重新启动，从而确保服务始终运行。
-安装PM2：
+### 使用pm2守护Verdaccio进程
+pm2是一个Node.js进程管理器，可以轻松管理Verdaccio进程。pm2可以确保Verdaccio进程在系统崩溃或重启时自动重新启动，从而确保服务始终运行。
+安装pm2：
 ```bash
 # npm
 $ npm install -g pm2
@@ -143,7 +144,8 @@ $ pm2 list
 | pm2 delete <app_name> | 删除指定名称的应用程序 |  
 
 ### Verdaccio配置文件
-verdaccio服务启动后，会在启动服务对应的目录下创建一个名为`verdaccio`的文件夹，文件夹下有个`storage`文件夹和`config.yaml`文件。`storage`文件夹下存放的是 Verdaccio 存储的包，`config.yaml`文件是 Verdaccio 的默认配置文件。
+verdaccio服务启动后，会在启动服务对应的目录下创建一个名为`verdaccio`的文件夹，文件夹下有个`storage`文件夹和`config.yaml`文件。`storage`文件夹下存放的是 Verdaccio 存储的包，`config.yaml`文件是 Verdaccio 的默认配置文件。  
+
 ```yaml
 # 存储路径
 storage: ./storage
@@ -381,13 +383,16 @@ $ npm install <package_name> --registry=http://localhost:4873
 ### 从私有仓库删除包
 如果是需要删除指定版本的某个包，输入以下命令：
 ```bash
-npm unpublish <package_name>@<version>
+$ npm unpublish <package_name>@<version>
 ```
 如果是需要删除整个包：
 ```bash
-npm unpublish <package_name> --force
+$ npm unpublish <package_name> --force
 ```
-不建议删除已经发布的包，可能会对已经引用的项目造成影响。
+不建议删除已经发布的包，可能会对已经引用的项目造成影响。推荐使用以下命令来标记包已经过时，不推荐安装使用：  
+```bash
+$ npm deprecate <package_name>@<version> <message>
+```
 
 ### 退出私有仓库
 使用npm退出私有仓库：
@@ -414,7 +419,7 @@ $ chmod -R 777 /root
 ```
 然后再使用`npm install -g verdaccio`安装。
 
-### 2. 使用 pm2 启动verdaccio 失败
+### 2. 使用 pm2 启动 verdaccio 失败
 使用pm2启动verdaccio后，输入`pm2 list`命令，会显示 verdaccio 程序状态为 `errored`，使用`pm2 logs`命令打印日志，输出如下错误：
 ```
 Error: Cannot find module '/root/verdaccio'
@@ -439,3 +444,6 @@ $ pm2 start `which verdaccio`
 
 ### 3. 服务启动后，互联网用户不能访问
 服务器中启动verdaccio服务后，互联网用户访问不到，首先要确定云服务器是否开启了对应端口。同时还需要将verdaccio配置文件中的端口监听由`localhost:4873`改为`0.0.0.0:4873`。
+
+## 总结
+使用 Verdaccio 可以很轻松容易的搭建一个私有的 npm 仓库，可以为团队或个人提供一个方便管理和分享 npm 包的平台，部署和使用都非常简单，大家快用起来吧！
