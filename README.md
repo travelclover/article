@@ -1,3 +1,4 @@
+- [《如何部署npm私有仓库以及在项目中如何使用》](https://github.com/travelclover/article/blob/master/2024/如何部署npm私有仓库以及在项目中如何使用.md) 2024-04-18
 - [《ArcGIS JS API实现小车导航效果》](https://github.com/travelclover/article/blob/master/2023/ArcGIS%20JS%20API实现小车导航效果.md) 2023-07-06
 - [《使用ArcGIS JS API与Tween.js实现图层闪烁动画效果》](https://github.com/travelclover/article/blob/master/2023/使用ArcGIS%20JS%20API与Tween.js实现图层闪烁动画效果.md) 2023-03-19
 - [《三维场景路径流线效果实现及如何发布npm包》](https://github.com/travelclover/article/blob/master/2022/三维场景路径流线效果实现及如何发布npm包.md) 2022-10-10
