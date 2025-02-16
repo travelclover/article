@@ -1,3 +1,4 @@
+- [《ArcGIS JS API之通过客户端要素创建FeatureLayer》](https://github.com/travelclover/article/blob/master/2025/ArcGIS%20JS%20API之通过客户端要素创建FeatureLayer.md) 2025-02-16  
 - [《在ArcGIS JS API中使用WebGL实现波纹扩散特效》](https://github.com/travelclover/article/blob/master/2025/在ArcGIS%20JS%20API中使用WebGL实现波纹扩散特效.md) 2025-02-11  
 ![波纹扩散效果](https://travelclover.github.io/img/2025/02/波纹扩散效果.gif)
 - [《如何部署npm私有仓库以及在项目中如何使用》](https://github.com/travelclover/article/blob/master/2024/如何部署npm私有仓库以及在项目中如何使用.md) 2024-04-18
