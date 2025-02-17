@@ -27,7 +27,7 @@ const layer = new FeatureLayer({
 在某些场景下，我们可能需要在客户端动态生成要素数据，而不是从服务器加载。ArcGIS JS API允许我们通过客户端要素创建`FeatureLayer`。下面我们将通过一个示例来演示如何实现这一功能。
 
 ## 2.1 准备工作
-首先，我们需要引入ArcGIS JS API的CSS和JavaScript文件。在HTML文件的<head>部分，添加以下代码：
+首先，我们需要引入ArcGIS JS API的CSS和JavaScript文件。在HTML文件的`<head>`部分，添加以下代码：
 ```html
 <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
 <script src="https://js.arcgis.com/4.31/"></script>
