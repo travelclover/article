@@ -1,3 +1,4 @@
+- [《安装人大金仓数据库KingbaseES以及PostGIS扩展》](https://github.com/travelclover/article/blob/master/2025/安装人大金仓数据库KingbaseES以及PostGIS扩展.md) 2025-02-28  
 - [《ArcGIS JS API之ExtrudeSymbol3DLayer实现白膜效果》](https://github.com/travelclover/article/blob/master/2025/ArcGIS%20JS%20API之ExtrudeSymbol3DLayer实现白膜效果.md) 2025-02-19  
 - [《ArcGIS JS API之通过客户端要素创建FeatureLayer》](https://github.com/travelclover/article/blob/master/2025/ArcGIS%20JS%20API之通过客户端要素创建FeatureLayer.md) 2025-02-16  
 - [《在ArcGIS JS API中使用WebGL实现波纹扩散特效》](https://github.com/travelclover/article/blob/master/2025/在ArcGIS%20JS%20API中使用WebGL实现波纹扩散特效.md) 2025-02-11  
