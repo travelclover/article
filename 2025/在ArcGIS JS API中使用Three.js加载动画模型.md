@@ -194,7 +194,7 @@ onModelLoaded(gltf) {
   this.threeScene.add(gltf.scene);
 }
 ```
-![模型姿态](https://travelclover.github.io/img/2025/03/模型姿态.jpg)
+![模型姿态](https://travelclover.github.io/img/2025/03/模型姿态.jpg)  
 模型添加到场景中后，会发现位置对了，但是姿态是错的，需要将模型的姿态进行调整：
 ```javascript
 gltf.scene.rotateX((Math.PI / 180) * 90); // 使模型平行于地面
@@ -202,7 +202,7 @@ gltf.scene.rotateY((Math.PI / 180) * -22); // 使飞机模型对齐跑到
 gltf.scene.rotateX((Math.PI / 180) * -10); // 使飞机模型向上仰10度，模拟正在起飞的姿态
 ```
 现在模型就调整到正确的姿态了。
-![模型姿态调整](https://travelclover.github.io/img/2025/03/模型姿态调整.jpg)
+![模型姿态调整](https://travelclover.github.io/img/2025/03/模型姿态调整.jpg)  
 
 ### 2.3.6 处理模型动画
 加载模型后，需要处理模型的动画，使其能够正常播放。这里我们使用了Three.js提供的AnimationMixer来处理模型的动画：

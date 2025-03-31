@@ -1,4 +1,5 @@
 - [《在ArcGIS JS API中使用Three.js加载动画模型》](https://github.com/travelclover/article/blob/master/2025/在ArcGIS%20JS%20API中使用Three.js加载动画模型.md) 2025-03-29  
+![波纹扩散效果](https://travelclover.github.io/img/2025/03/model.gif)  
 - [《安装人大金仓数据库KingbaseES以及PostGIS扩展》](https://github.com/travelclover/article/blob/master/2025/安装人大金仓数据库KingbaseES以及PostGIS扩展.md) 2025-02-28  
 - [《ArcGIS JS API之ExtrudeSymbol3DLayer实现白膜效果》](https://github.com/travelclover/article/blob/master/2025/ArcGIS%20JS%20API之ExtrudeSymbol3DLayer实现白膜效果.md) 2025-02-19  
 - [《ArcGIS JS API之通过客户端要素创建FeatureLayer》](https://github.com/travelclover/article/blob/master/2025/ArcGIS%20JS%20API之通过客户端要素创建FeatureLayer.md) 2025-02-16  
