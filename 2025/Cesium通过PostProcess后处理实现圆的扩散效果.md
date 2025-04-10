@@ -1,11 +1,15 @@
 # Cesium通过PostProcess后处理实现圆的扩散效果
 
 在现代WebGIS开发中，Cesium作为一款强大的三维地球可视化库，提供了丰富的功能来创建各种视觉效果。本文将详细介绍如何利用Cesium的PostProcess后处理功能实现一个圆形的扩散效果，这种效果可以用于表示某个事件或现象的影响范围，比如疫情传播、自然灾害影响区域等，也可以用于表现某种力量的扩散，比如爆炸、能量波动等。  
-后处理(Post-Processing)是计算机图形学中常见的技术，指在场景渲染完成后对图像进行额外的处理。在Cesium中，我们可以通过PostProcessStage来实现各种后处理效果，如模糊、发光、色彩校正等。
+后处理(Post-Processing)是计算机图形学中常见的技术，指在场景渲染完成后对图像进行额外的处理。在Cesium中，我们可以通过PostProcessStage来实现各种后处理效果，如模糊、发光、色彩校正等。  
+
+https://github.com/user-attachments/assets/446167da-58bb-4e30-a1aa-79f4f1726dab
+
 
 # 1 效果展示
-我们将实现一个`以某个地理位置为圆心、向外扩散的红色圆圈特效`，随着时间推进，圆圈会不断扩张并循环动画，如同水波一样向外扩散。
-![cesium圆扩散效果](https://i-blog.csdnimg.cn/direct/cc2916e86a52421b917d1e490d203090.gif#pic_center)
+我们将实现一个`以某个地理位置为圆心、向外扩散的红色圆圈特效`，随着时间推进，圆圈会不断扩张并循环动画，如同水波一样向外扩散。  
+![cesium圆扩散效果](https://github.com/user-attachments/assets/8cc116f6-c80b-48c2-a055-8299c965e089)
+
 # 2 实现圆形扩散效果的核心思路
 我们的目标是创建一个以某点为中心，随时间向外扩散的圆形效果。实现这一效果需要以下几个关键步骤：
 1. 获取当前渲染的像素在世界坐标系中的位置
@@ -95,7 +99,8 @@ function () {
   return normal;
 }
 ```
-![法向量求平面示意图](https://i-blog.csdnimg.cn/direct/ffff3e996b804d78a0d7f0294328cafa.jpeg#pic_center)
+![法向量求平面示意图](https://github.com/user-attachments/assets/5eb2104a-1303-444f-9a97-db3ec090ac27)
+  
 通过点A和点B求出法向量，通过法向量和点A坐标算出平行于地面的平面，后续可以求得其他点在该平面的投影点坐标。  
 
 **`u_position`**: 圆扩散的中心点在视空间中的位置。  
@@ -161,6 +166,9 @@ vec3 projectionPoint = projectPointOnPlane(u_panelNormal, u_position, eyeCoordin
 ```
 这个函数会将当前像素点在视空间中的位置投影到以圆心为中心、法向量为 `u_panelNormal `的平面上，确保我们的扩散距离只在这个平面内判断。  
 
+![distance计算示意图](https://github.com/user-attachments/assets/2d447727-4f93-46c8-b431-53f3c59ab8e1)
+
+
 ### 3.4.5 计算与圆心的距离
 使用`length()`函数计算距离：
 ```glsl
@@ -201,6 +209,7 @@ vec4 blend(vec4 src, vec4 dst) {
 # 5 源码下载
 如需源码可点击[下载链接](https://mbd.pub/o/bread/mbd-aJeTmp9v)，非常感谢您的支持。  
 通过关注微信公众号《Web与GIS》，获取更多内容。  
+![微信公众号](https://github.com/user-attachments/assets/225501b4-659b-44d7-99d3-947d7244b139)
   
 ---
 如果该文章对您有所帮助，请您一定不要吝啬您的鼓励。点赞、评论、分享、收藏、打赏都是您对我的鼓励和支持。  
